@@ -1,6 +1,7 @@
 package br.com.cauequeiroz.forum.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,15 +17,15 @@ public class Post {
 
     private String message;
 
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Enumerated(EnumType.STRING)
     private PostStatus status = PostStatus.NOT_ANSWERED;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private User author;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Course course;
 
     @OneToMany(mappedBy = "post")
