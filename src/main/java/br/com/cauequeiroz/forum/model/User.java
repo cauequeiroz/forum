@@ -1,7 +1,12 @@
 package br.com.cauequeiroz.forum.model;
 
+import javax.persistence.*;
+
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -9,6 +14,9 @@ public class User {
     private String email;
 
     private String password;
+
+    public User() {
+    }
 
     public Long getId() {
         return id;

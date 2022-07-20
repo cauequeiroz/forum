@@ -1,9 +1,13 @@
 package br.com.cauequeiroz.forum.model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
 public class Reply {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String message;
@@ -12,9 +16,14 @@ public class Reply {
 
     private boolean isPostSolution = false;
 
+    @ManyToOne
     private Post post;
 
+    @ManyToOne
     private User author;
+
+    public Reply() {
+    }
 
     public Long getId() {
         return id;

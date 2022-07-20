@@ -2,10 +2,8 @@ package br.com.cauequeiroz.forum.model.controller.dto;
 
 import br.com.cauequeiroz.forum.model.Post;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PostDTO {
 

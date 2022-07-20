@@ -1,12 +1,15 @@
 package br.com.cauequeiroz.forum.model;
 
-import java.time.LocalDate;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Post {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;
@@ -15,13 +18,20 @@ public class Post {
 
     private LocalDateTime createdAt;
 
+    @Enumerated(EnumType.STRING)
     private PostStatus status = PostStatus.NOT_ANSWERED;
 
+    @ManyToOne
     private User author;
 
+    @ManyToOne
     private Course course;
 
+    @OneToMany(mappedBy = "post")
     private List<Reply> replies = new ArrayList<>();
+
+    public Post() {
+    }
 
     public Long getId() {
         return id;
