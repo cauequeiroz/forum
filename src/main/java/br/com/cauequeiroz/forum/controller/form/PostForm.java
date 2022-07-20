@@ -1,14 +1,19 @@
-package br.com.cauequeiroz.forum.model.controller.form;
+package br.com.cauequeiroz.forum.controller.form;
 
 import br.com.cauequeiroz.forum.model.Post;
-import br.com.cauequeiroz.forum.model.repository.CourseRepository;
+import br.com.cauequeiroz.forum.repository.CourseRepository;
+
+import javax.validation.constraints.NotEmpty;
 
 public class PostForm {
 
+    @NotEmpty
     private String title;
 
+    @NotEmpty
     private String message;
 
+    @NotEmpty
     private String courseName;
 
     public String getTitle() {

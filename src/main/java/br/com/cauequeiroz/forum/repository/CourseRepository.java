@@ -1,4 +1,4 @@
-package br.com.cauequeiroz.forum.model.repository;
+package br.com.cauequeiroz.forum.repository;
 
 import br.com.cauequeiroz.forum.model.Course;
 import org.springframework.data.jpa.repository.JpaRepository;

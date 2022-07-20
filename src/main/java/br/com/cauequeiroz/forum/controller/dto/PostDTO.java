@@ -1,4 +1,4 @@
-package br.com.cauequeiroz.forum.model.controller.dto;
+package br.com.cauequeiroz.forum.controller.dto;
 
 import br.com.cauequeiroz.forum.model.Post;
 

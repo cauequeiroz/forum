@@ -1,15 +1,16 @@
-package br.com.cauequeiroz.forum.model.controller;
+package br.com.cauequeiroz.forum.controller;
 
 import br.com.cauequeiroz.forum.model.Post;
-import br.com.cauequeiroz.forum.model.controller.dto.PostDTO;
-import br.com.cauequeiroz.forum.model.controller.form.PostForm;
-import br.com.cauequeiroz.forum.model.repository.CourseRepository;
-import br.com.cauequeiroz.forum.model.repository.PostRepository;
+import br.com.cauequeiroz.forum.controller.dto.PostDTO;
+import br.com.cauequeiroz.forum.controller.form.PostForm;
+import br.com.cauequeiroz.forum.repository.CourseRepository;
+import br.com.cauequeiroz.forum.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostDTO> create(@RequestBody PostForm postForm, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<PostDTO> create(@RequestBody @Valid PostForm postForm, UriComponentsBuilder uriBuilder) {
         Post post = postForm.toPost(courseRepository);
         postRepository.save(post);
 
