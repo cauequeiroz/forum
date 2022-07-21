@@ -1,12 +1,12 @@
 package br.com.cauequeiroz.forum.config;
 
-public class ErrorDTO {
+public class ErrorFieldDTO {
 
     private String field;
 
     private String message;
 
-    public ErrorDTO(String field, String message) {
+    public ErrorFieldDTO(String field, String message) {
         this.field = field;
         this.message = message;
     }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestControllerAdvice
@@ -14,19 +15,26 @@ public class ValidationErrorHandler {
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public List<ErrorDTO> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
+    public List<ErrorFieldDTO> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
 
         return exception.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(error -> new ErrorDTO(error.getField(), error.getDefaultMessage()))
+                .map(error -> new ErrorFieldDTO(error.getField(), error.getDefaultMessage()))
                 .toList();
     }
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ErrorDTO handleHttpMessageNotReadable(HttpMessageNotReadableException exception) {
+    public ErrorMessageDTO handleHttpMessageNotReadable(HttpMessageNotReadableException exception) {
 
-        return new ErrorDTO("Invalid JSON message.", exception.getMessage());
+        return new ErrorMessageDTO("Invalid JSON format.");
+    }
+
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ErrorMessageDTO handleEntityNotFound() {
+
+        return new ErrorMessageDTO("ID not found.");
     }
 }
