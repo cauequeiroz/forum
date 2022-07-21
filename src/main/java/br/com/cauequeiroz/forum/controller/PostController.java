@@ -1,5 +1,6 @@
 package br.com.cauequeiroz.forum.controller;
 
+import br.com.cauequeiroz.forum.controller.dto.PostDetailDTO;
 import br.com.cauequeiroz.forum.model.Post;
 import br.com.cauequeiroz.forum.controller.dto.PostDTO;
 import br.com.cauequeiroz.forum.controller.form.PostForm;
@@ -34,7 +35,9 @@ public class PostController {
             posts = postRepository.findByCourseName(courseName);
         }
 
-        return PostDTO.fromList(posts);
+        return posts.stream()
+                .map(PostDTO::new)
+                .toList();
     }
 
     @PostMapping
@@ -48,6 +51,11 @@ public class PostController {
                 .toUri();
 
         return ResponseEntity.created(uri).body(new PostDTO(post));
+    }
+
+    @GetMapping("/{id}")
+    public PostDetailDTO getPostById(@PathVariable Long id) {
+        return new PostDetailDTO(postRepository.getReferenceById(id));
     }
 
 }

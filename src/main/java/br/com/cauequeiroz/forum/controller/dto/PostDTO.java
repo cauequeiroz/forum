@@ -7,6 +7,8 @@ import java.util.List;
 
 public class PostDTO {
 
+    private Long id;
+
     private String title;
 
     private String message;
@@ -14,15 +16,14 @@ public class PostDTO {
     private String createdAt;
 
     public PostDTO(Post post) {
+        this.id = post.getId();
         this.title = post.getTitle();
         this.message = post.getMessage();
         this.createdAt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(post.getCreatedAt());
     }
 
-    public static List<PostDTO> fromList(List<Post> posts) {
-        return posts.stream()
-                .map(PostDTO::new)
-                .toList();
+    public Long getId() {
+        return id;
     }
 
     public String getTitle() {
