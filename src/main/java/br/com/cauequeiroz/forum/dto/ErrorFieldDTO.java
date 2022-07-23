@@ -1,4 +1,4 @@
-package br.com.cauequeiroz.forum.config;
+package br.com.cauequeiroz.forum.dto;
 
 public class ErrorFieldDTO {
 

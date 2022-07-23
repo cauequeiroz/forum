@@ -1,11 +1,8 @@
-package br.com.cauequeiroz.forum.controller.form;
-
-import br.com.cauequeiroz.forum.model.Post;
-import br.com.cauequeiroz.forum.repository.PostRepository;
+package br.com.cauequeiroz.forum.dto;
 
 import javax.validation.constraints.NotEmpty;
 
-public class PostUpdateForm {
+public class PostUpdateRequestDTO {
 
     @NotEmpty
     private String title;
@@ -27,13 +24,5 @@ public class PostUpdateForm {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public Post update(Long id, PostRepository postRepository) {
-        Post post = postRepository.getReferenceById(id);
-        post.setTitle(title);
-        post.setMessage(message);
-
-        return post;
     }
 }

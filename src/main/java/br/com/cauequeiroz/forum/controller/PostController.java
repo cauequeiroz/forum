@@ -1,86 +1,47 @@
 package br.com.cauequeiroz.forum.controller;
 
-import br.com.cauequeiroz.forum.controller.dto.PostDetailDTO;
-import br.com.cauequeiroz.forum.controller.form.PostUpdateForm;
-import br.com.cauequeiroz.forum.model.Post;
-import br.com.cauequeiroz.forum.controller.dto.PostDTO;
-import br.com.cauequeiroz.forum.controller.form.PostForm;
-import br.com.cauequeiroz.forum.repository.CourseRepository;
-import br.com.cauequeiroz.forum.repository.PostRepository;
+import br.com.cauequeiroz.forum.dto.PostDTO;
+import br.com.cauequeiroz.forum.dto.PostDetailDTO;
+import br.com.cauequeiroz.forum.dto.PostRequestDTO;
+import br.com.cauequeiroz.forum.dto.PostUpdateRequestDTO;
+import br.com.cauequeiroz.forum.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/posts")
 public class PostController {
 
     @Autowired
-    private PostRepository postRepository;
-
-    @Autowired
-    private CourseRepository courseRepository;
+    private PostService postService;
 
     @GetMapping
     public List<PostDTO> getAll(String courseName) {
-        List<Post> posts;
-
-        if (courseName == null) {
-            posts = postRepository.findAll();
-        } else {
-            posts = postRepository.findByCourseName(courseName);
-        }
-
-        return posts.stream()
-                .map(PostDTO::new)
-                .toList();
+        return postService.getAll(courseName);
     }
 
     @PostMapping
-    @Transactional
-    public ResponseEntity<PostDTO> create(@RequestBody @Valid PostForm postForm, UriComponentsBuilder uriBuilder) {
-        Post post = postForm.toPost(courseRepository);
-        postRepository.save(post);
-
-        URI uri = uriBuilder
-                .path("/posts/{id}")
-                .buildAndExpand(post.getId())
-                .toUri();
-
-        return ResponseEntity.created(uri).body(new PostDTO(post));
+    public ResponseEntity<PostDTO> create(@RequestBody @Valid PostRequestDTO postRequestDTO, UriComponentsBuilder uriBuilder) {
+        return postService.create(postRequestDTO, uriBuilder);
     }
 
     @GetMapping("/{id}")
     public PostDetailDTO getById(@PathVariable Long id) {
-        return new PostDetailDTO(postRepository.getReferenceById(id));
+        return postService.getById(id);
     }
 
     @PutMapping("/{id}")
-    @Transactional
-    public ResponseEntity<PostDetailDTO> update(@PathVariable Long id, @RequestBody @Valid PostUpdateForm postUpdateForm) {
-        Post post = postUpdateForm.update(id, postRepository);
-
-        return ResponseEntity.ok(new PostDetailDTO(post));
+    public ResponseEntity<PostDetailDTO> update(@PathVariable Long id, @RequestBody @Valid PostUpdateRequestDTO postUpdateRequestDTO) {
+        return postService.update(id, postUpdateRequestDTO);
     }
 
     @DeleteMapping("/{id}")
-    @Transactional
     public ResponseEntity<?> delete(@PathVariable Long id) {
-        Optional<Post> post = postRepository.findById(id);
-
-        if (!post.isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        postRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+        return postService.delete(id);
     }
 }
