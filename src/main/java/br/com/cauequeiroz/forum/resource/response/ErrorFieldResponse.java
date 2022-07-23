@@ -1,12 +1,12 @@
-package br.com.cauequeiroz.forum.dto;
+package br.com.cauequeiroz.forum.resource.response;
 
-public class ErrorFieldDTO {
+public class ErrorFieldResponse {
 
     private String field;
 
     private String message;
 
-    public ErrorFieldDTO(String field, String message) {
+    public ErrorFieldResponse(String field, String message) {
         this.field = field;
         this.message = message;
     }

@@ -1,10 +1,10 @@
-package br.com.cauequeiroz.forum.dto;
+package br.com.cauequeiroz.forum.resource.response;
 
 import br.com.cauequeiroz.forum.model.Post;
 
 import java.time.format.DateTimeFormatter;
 
-public class PostDTO {
+public class PostResponse {
 
     private Long id;
 
@@ -14,7 +14,7 @@ public class PostDTO {
 
     private String createdAt;
 
-    public PostDTO(Post post) {
+    public PostResponse(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.message = post.getMessage();

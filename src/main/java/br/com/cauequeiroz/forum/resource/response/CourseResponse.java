@@ -1,14 +1,14 @@
-package br.com.cauequeiroz.forum.dto;
+package br.com.cauequeiroz.forum.resource.response;
 
 import br.com.cauequeiroz.forum.model.Course;
 
-public class CourseDTO {
+public class CourseResponse {
 
     private String name;
 
     private String category;
 
-    public CourseDTO(Course course) {
+    public CourseResponse(Course course) {
         this.name = course.getName();
         this.category = course.getCategory();
     }

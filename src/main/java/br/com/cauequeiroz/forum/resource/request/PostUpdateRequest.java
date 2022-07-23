@@ -1,8 +1,8 @@
-package br.com.cauequeiroz.forum.dto;
+package br.com.cauequeiroz.forum.resource.request;
 
 import javax.validation.constraints.NotEmpty;
 
-public class PostUpdateRequestDTO {
+public class PostUpdateRequest {
 
     @NotEmpty
     private String title;

@@ -1,8 +1,8 @@
-package br.com.cauequeiroz.forum.dto;
+package br.com.cauequeiroz.forum.resource.response;
 
 import br.com.cauequeiroz.forum.model.Reply;
 
-public class ReplyDTO {
+public class ReplyResponse {
 
     private Long id;
 
@@ -10,7 +10,7 @@ public class ReplyDTO {
 
     private String authorName;
 
-    public ReplyDTO(Reply reply) {
+    public ReplyResponse(Reply reply) {
         this.id = reply.getId();
         this.message = reply.getMessage();
         this.authorName = reply.getAuthor().getName();

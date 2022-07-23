@@ -1,7 +1,7 @@
 package br.com.cauequeiroz.forum.config;
 
-import br.com.cauequeiroz.forum.dto.ErrorFieldDTO;
-import br.com.cauequeiroz.forum.dto.ErrorMessageDTO;
+import br.com.cauequeiroz.forum.resource.response.ErrorFieldResponse;
+import br.com.cauequeiroz.forum.resource.response.ErrorMessageResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -17,26 +17,26 @@ public class ValidationErrorHandler {
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public List<ErrorFieldDTO> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
+    public List<ErrorFieldResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
 
         return exception.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(error -> new ErrorFieldDTO(error.getField(), error.getDefaultMessage()))
+                .map(error -> new ErrorFieldResponse(error.getField(), error.getDefaultMessage()))
                 .toList();
     }
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ErrorMessageDTO handleHttpMessageNotReadable(HttpMessageNotReadableException exception) {
+    public ErrorMessageResponse handleHttpMessageNotReadable(HttpMessageNotReadableException exception) {
 
-        return new ErrorMessageDTO("Invalid JSON format.");
+        return new ErrorMessageResponse("Invalid JSON format.");
     }
 
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     @ExceptionHandler(EntityNotFoundException.class)
-    public ErrorMessageDTO handleEntityNotFound() {
+    public ErrorMessageResponse handleEntityNotFound() {
 
-        return new ErrorMessageDTO("This ID do not exist in our database.");
+        return new ErrorMessageResponse("This ID do not exist in our database.");
     }
 }

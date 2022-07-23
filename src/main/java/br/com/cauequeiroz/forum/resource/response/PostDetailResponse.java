@@ -1,4 +1,4 @@
-package br.com.cauequeiroz.forum.dto;
+package br.com.cauequeiroz.forum.resource.response;
 
 import br.com.cauequeiroz.forum.model.Post;
 import br.com.cauequeiroz.forum.model.PostStatus;
@@ -6,7 +6,7 @@ import br.com.cauequeiroz.forum.model.PostStatus;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class PostDetailDTO {
+public class PostDetailResponse {
 
     private Long id;
 
@@ -20,20 +20,20 @@ public class PostDetailDTO {
 
     private String authorName;
 
-    private CourseDTO course;
+    private CourseResponse course;
 
-    private List<ReplyDTO> replies;
+    private List<ReplyResponse> replies;
 
-    public PostDetailDTO(Post post) {
+    public PostDetailResponse(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.message = post.getMessage();
         this.createdAt = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm").format(post.getCreatedAt());
         this.status = post.getStatus();
         this.authorName = post.getAuthor().getName();
-        this.course = new CourseDTO(post.getCourse());
+        this.course = new CourseResponse(post.getCourse());
 
-        List<ReplyDTO> replies = post.getReplies().stream().map(ReplyDTO::new).toList();
+        List<ReplyResponse> replies = post.getReplies().stream().map(ReplyResponse::new).toList();
         this.replies = replies;
     }
 
@@ -61,11 +61,11 @@ public class PostDetailDTO {
         return authorName;
     }
 
-    public CourseDTO getCourse() {
+    public CourseResponse getCourse() {
         return course;
     }
 
-    public List<ReplyDTO> getReplies() {
+    public List<ReplyResponse> getReplies() {
         return replies;
     }
 }

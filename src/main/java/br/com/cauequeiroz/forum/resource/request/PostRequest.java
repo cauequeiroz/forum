@@ -1,8 +1,8 @@
-package br.com.cauequeiroz.forum.dto;
+package br.com.cauequeiroz.forum.resource.request;
 
 import javax.validation.constraints.NotEmpty;
 
-public class PostRequestDTO {
+public class PostRequest {
 
     @NotEmpty
     private String title;
@@ -12,6 +12,9 @@ public class PostRequestDTO {
 
     @NotEmpty
     private String courseName;
+
+    @NotEmpty
+    private String authorName;
 
     public String getTitle() {
         return title;
@@ -35,5 +38,13 @@ public class PostRequestDTO {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
     }
 }

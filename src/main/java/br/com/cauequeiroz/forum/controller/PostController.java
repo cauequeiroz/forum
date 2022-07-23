@@ -1,9 +1,9 @@
 package br.com.cauequeiroz.forum.controller;
 
-import br.com.cauequeiroz.forum.dto.PostDTO;
-import br.com.cauequeiroz.forum.dto.PostDetailDTO;
-import br.com.cauequeiroz.forum.dto.PostRequestDTO;
-import br.com.cauequeiroz.forum.dto.PostUpdateRequestDTO;
+import br.com.cauequeiroz.forum.resource.response.PostResponse;
+import br.com.cauequeiroz.forum.resource.response.PostDetailResponse;
+import br.com.cauequeiroz.forum.resource.request.PostRequest;
+import br.com.cauequeiroz.forum.resource.request.PostUpdateRequest;
 import br.com.cauequeiroz.forum.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,23 +21,23 @@ public class PostController {
     private PostService postService;
 
     @GetMapping
-    public List<PostDTO> getAll(String courseName) {
+    public List<PostResponse> getAll(String courseName) {
         return postService.getAll(courseName);
     }
 
     @PostMapping
-    public ResponseEntity<PostDTO> create(@RequestBody @Valid PostRequestDTO postRequestDTO, UriComponentsBuilder uriBuilder) {
-        return postService.create(postRequestDTO, uriBuilder);
+    public ResponseEntity<PostResponse> create(@RequestBody @Valid PostRequest postRequest, UriComponentsBuilder uriBuilder) {
+        return postService.create(postRequest, uriBuilder);
     }
 
     @GetMapping("/{id}")
-    public PostDetailDTO getById(@PathVariable Long id) {
+    public PostDetailResponse getById(@PathVariable Long id) {
         return postService.getById(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PostDetailDTO> update(@PathVariable Long id, @RequestBody @Valid PostUpdateRequestDTO postUpdateRequestDTO) {
-        return postService.update(id, postUpdateRequestDTO);
+    public ResponseEntity<PostDetailResponse> update(@PathVariable Long id, @RequestBody @Valid PostUpdateRequest postUpdateRequest) {
+        return postService.update(id, postUpdateRequest);
     }
 
     @DeleteMapping("/{id}")
