@@ -10,6 +10,8 @@ import br.com.cauequeiroz.forum.resource.response.ErrorMessageResponse;
 import br.com.cauequeiroz.forum.resource.response.PostResponse;
 import br.com.cauequeiroz.forum.resource.response.PostDetailResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -31,13 +33,13 @@ public class PostService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<PostResponse> getAll(String courseName) {
+    public List<PostResponse> getAll(String courseName, Pageable pagination) {
         List<Post> posts;
 
         if (courseName == null) {
-            posts = postRepository.findAll();
+            posts = postRepository.findAll(pagination).stream().toList();
         } else {
-            posts = postRepository.findByCourseName(courseName);
+            posts = postRepository.findByCourseName(courseName, pagination).stream().toList();
         }
 
         return posts.stream()
