@@ -8,3 +8,4 @@ Features:
 - Pagination & Ordering
 - Spring Data JPA
 - Spring Cache
+- Spring Security
